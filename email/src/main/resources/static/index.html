@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Enviar correo</title>
+</head>
+<body>
+<h2>Enviar correo</h2>
+
+<form id="form">
+    <input type="email" id="to" placeholder="Correo destino" required><br><br>
+    <textarea id="message" placeholder="Mensaje" required></textarea><br><br>
+    <button type="submit">Enviar</button>
+</form>
+
+<script>
+    document.getElementById("form").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        fetch("/api/email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                to: document.getElementById("to").value,
+                message: document.getElementById("message").value
+            })
+        }).then(() => alert("Correo enviado"));
+    });
+</script>
+</body>
+</html>
